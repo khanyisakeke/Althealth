@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "890497048237",
+    "project_id": "althealth-27d6d",
+    "storage_bucket": "althealth-27d6d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:890497048237:android:31f907d56486d16c58f024",
+        "android_client_info": {
+          "package_name": "com.example.althealth"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "890497048237-d384rfm3dr3bqicfeddjo67tu78mhiam.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.althealth",
+            "certificate_hash": "98dd6737a3bf68f8d167ab9e793d9deb75dcb810"
+          }
+        },
+        {
+          "client_id": "890497048237-b8v57r711vto7dfd28oqbeds2irqilku.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDg2I5nSpevx-is5qCZxcd1eJoOJsSnwiY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "890497048237-b8v57r711vto7dfd28oqbeds2irqilku.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
