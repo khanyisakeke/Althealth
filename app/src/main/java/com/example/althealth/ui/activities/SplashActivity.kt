@@ -1,9 +1,10 @@
-package com.example.althealth
+package com.example.althealth.ui.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
+import com.example.althealth.R
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
