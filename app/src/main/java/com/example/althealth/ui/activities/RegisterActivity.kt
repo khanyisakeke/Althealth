@@ -22,4 +22,9 @@ class RegisterActivity : BaseActivity() {
         }
 
     }
+
+    private fun setupActionBar(){
+
+    }
+
 }
