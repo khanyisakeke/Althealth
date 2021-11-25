@@ -8,11 +8,11 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-<color name="newColorThemePink">#dd2476</color>
-<color name="newColorThemeOrange">#ff512f</color>
+<color name="colorThemePink">#dd2476</color>
+<color name="colorThemeOrange">#ff512f</color>
 
-<color name="newColorPrimaryText">#222934</color>
-<color name="newColorSecondaryText">#989898</color>
+<color name="colorPrimaryText">#222934</color>
+<color name="colorSecondaryText">#989898</color>
 
     <color name="colorSnackBarSuccess">#8BC34A</color>
     <color name="colorSnackBarError">#F72400</color>

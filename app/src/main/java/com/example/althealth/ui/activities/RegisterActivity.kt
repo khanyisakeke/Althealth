@@ -4,15 +4,20 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
+import android.view.View
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import com.example.althealth.R
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.AuthResult
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 
-class RegisterActivity : BaseActivity() {
+class RegisterActivity : BaseActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
@@ -25,14 +30,9 @@ class RegisterActivity : BaseActivity() {
         val tv_login: TextView = findViewById(R.id.tv_login)
         val btn_register: Button = findViewById(R.id.btn_register)
 
-        tv_login.setOnClickListener{
-            val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
-            startActivity(intent)
-        }
+        tv_login.setOnClickListener(this)
 
-        btn_register.setOnClickListener {
-            validateRegisterDetails()
-        }
+        btn_register.setOnClickListener(this)
 
     }
 
@@ -105,13 +105,69 @@ class RegisterActivity : BaseActivity() {
                 false
             }
             else -> {
-                showErrorSnackBar(resources.getString(R.string.registry_successfull), false)
+
                 true
+
             }
 
         }
 
+    }
 
+    private fun registerUser(){
+
+        // Check with validate function if the entries are valid or not.
+
+        val et_email: EditText = findViewById(R.id.et_email)
+        val et_password: EditText = findViewById(R.id.et_password)
+
+        if (validateRegisterDetails()){
+
+            val email: String = et_email.text.toString().trim() { it <= ' ' }
+            val password: String = et_password.text.toString().trim() { it <= ' ' }
+
+            //Create an instance and create a register a user with email and password
+            FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(
+                    OnCompleteListener<AuthResult> { task ->
+
+                        // If the registration is successfully done
+                        if (task.isSuccessful) {
+
+                            val firebaseUser: FirebaseUser = task.result!!.user!!
+
+                            showErrorSnackBar(
+                                "You are registered successfully. Your user id is ${firebaseUser.uid}",
+                                false
+                            )
+                        } else {
+                            // If the registering is not successful then show error message.
+                            showErrorSnackBar(task.exception!!.message.toString(), true)
+                        }
+                    }
+                )
+        }
+
+    }
+
+    override fun onClick(v: View?) {
+
+        if (v != null) {
+            when (v.id) {
+
+                R.id.tv_login -> {
+                    val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
+                    startActivity(intent)
+                }
+
+                R.id.btn_register -> {
+
+                    registerUser()
+
+                }
+
+            }
+        }
 
     }
 
