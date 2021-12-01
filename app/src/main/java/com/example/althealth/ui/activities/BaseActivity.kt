@@ -1,10 +1,12 @@
 package com.example.althealth.ui.activities
 
 
+import android.app.Dialog
 import android.os.Build
 
 import android.view.WindowInsets
 import android.view.WindowManager
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -20,6 +22,8 @@ import kotlinx.coroutines.launch
 */
 
 open class BaseActivity: AppCompatActivity() {
+
+    private lateinit var mProgressDialog: Dialog
 
     // A global variable for double back press feature.
     private var doubleBackToExitPressedOnce = false
@@ -39,6 +43,27 @@ open class BaseActivity: AppCompatActivity() {
             snackBarView.setBackgroundColor(ContextCompat.getColor(this@BaseActivity, R.color.colorSnackBarSuccess))
         }
         snackBar.show()
+    }
+
+    fun showProgressDialog(text: String){
+        mProgressDialog = Dialog(this)
+
+        mProgressDialog.setContentView(R.layout.dialog_progress)
+
+        val tv_progress_text: TextView = mProgressDialog.findViewById(R.id.tv_progress_text) as TextView
+
+        tv_progress_text.text = text
+
+        mProgressDialog.setCancelable(false)
+
+        mProgressDialog.setCanceledOnTouchOutside(false)
+
+        mProgressDialog.show()
+
+    }
+
+    fun hideProgressDialog(){
+        mProgressDialog.dismiss()
     }
 
     // This function is used to hide the status bar and make the screen a full screen activity.
@@ -80,6 +105,7 @@ open class BaseActivity: AppCompatActivity() {
         }
 
     }
+
 
 
 }

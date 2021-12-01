@@ -123,6 +123,8 @@ class RegisterActivity : BaseActivity(), View.OnClickListener {
 
         if (validateRegisterDetails()){
 
+            showProgressDialog(resources.getString(R.string.please_wait))
+
             val email: String = et_email.text.toString().trim() { it <= ' ' }
             val password: String = et_password.text.toString().trim() { it <= ' ' }
 
@@ -130,6 +132,8 @@ class RegisterActivity : BaseActivity(), View.OnClickListener {
             FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(
                     OnCompleteListener<AuthResult> { task ->
+
+                        hideProgressDialog()
 
                         // If the registration is successfully done
                         if (task.isSuccessful) {
@@ -140,6 +144,10 @@ class RegisterActivity : BaseActivity(), View.OnClickListener {
                                 "You are registered successfully. Your user id is ${firebaseUser.uid}",
                                 false
                             )
+
+                            FirebaseAuth.getInstance().signOut()
+                            finish()
+
                         } else {
                             // If the registering is not successful then show error message.
                             showErrorSnackBar(task.exception!!.message.toString(), true)
