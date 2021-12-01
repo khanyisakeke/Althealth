@@ -41,7 +41,8 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         if (v != null){
             when (v.id){
                 R.id.tv_forgot_password -> {
-
+                    val intent = Intent(this@LoginActivity, ForgotPasswordActivity::class.java)
+                    startActivity(intent)
                 }
                 R.id.btn_login -> {
 
