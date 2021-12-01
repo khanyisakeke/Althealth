@@ -7,10 +7,12 @@ import android.text.TextUtils
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
+import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import com.example.althealth.R
 import com.example.althealth.utils.Constants
+import com.google.firebase.auth.FirebaseAuth
 
 class LoginActivity : BaseActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,8 +22,15 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         // Hide the status bar and make the screen a full screen activity.
        hideStatusBar()
 
+        val tv_forgot_password: TextView = findViewById(R.id.tv_forgot_password)
         val tv_register: TextView = findViewById(R.id.tv_register)
+        val btn_login: Button = findViewById(R.id.btn_login)
 
+        //Click event assigned to Forgot Password textview
+        tv_forgot_password.setOnClickListener(this)
+        //Click event assigned to Login button.
+        btn_login.setOnClickListener(this)
+        //Click event assigned to Register textview
         tv_register.setOnClickListener(this)
 
     }
@@ -35,7 +44,9 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
 
                 }
                 R.id.btn_login -> {
-                    validateLoginDetails()
+
+                    loginRegisteredUser()
+
                 }
                 R.id.tv_register -> {
                     //Launch the register screen when the user clicks on the text
@@ -63,10 +74,44 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                 false
             }
             else -> {
-                showErrorSnackBar("Your details are valid", false)
+
                 true
             }
         }
     }
+
+private fun loginRegisteredUser(){
+
+    val et_email: EditText = findViewById(R.id.et_email)
+    val et_password: EditText = findViewById(R.id.et_password)
+
+    if (validateLoginDetails()) {
+
+        //Show the progress dialog
+        showProgressDialog(resources.getString(R.string.please_wait))
+
+        //Get the text from ediText boxes and trim the space
+        val email = et_email.text.toString().trim { it <= ' ' }
+        val password = et_password.text.toString().trim { it <= ' ' }
+
+        //Log-In using FirebaseAuth
+        FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener { task ->
+
+                //Hide the progress dialog
+                hideProgressDialog()
+
+                if (task.isSuccessful) {
+
+                    showErrorSnackBar("You are logged in successfully", false)
+
+                } else {
+                    showErrorSnackBar(task.exception!!.message.toString(), true)
+                }
+            }
+
+    }
+
+}
 
 }

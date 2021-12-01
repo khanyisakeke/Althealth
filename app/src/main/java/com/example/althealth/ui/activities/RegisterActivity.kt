@@ -164,8 +164,9 @@ class RegisterActivity : BaseActivity(), View.OnClickListener {
             when (v.id) {
 
                 R.id.tv_login -> {
-                    val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
-                    startActivity(intent)
+
+                    onBackPressed()
+
                 }
 
                 R.id.btn_register -> {
