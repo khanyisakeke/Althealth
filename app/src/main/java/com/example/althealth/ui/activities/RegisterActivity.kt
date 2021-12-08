@@ -5,12 +5,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
-import android.widget.Button
-import android.widget.CheckBox
-import android.widget.EditText
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.widget.Toolbar
 import com.example.althealth.R
+import com.example.althealth.firestore.FirestoreClass
+import com.example.althealth.models.User
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.AuthResult
@@ -120,6 +119,9 @@ class RegisterActivity : BaseActivity(), View.OnClickListener {
 
         val et_email: EditText = findViewById(R.id.et_email)
         val et_password: EditText = findViewById(R.id.et_password)
+        val et_first_name: EditText = findViewById(R.id.et_first_name)
+        val et_last_name: EditText = findViewById(R.id.et_last_name)
+
 
         if (validateRegisterDetails()){
 
@@ -133,28 +135,40 @@ class RegisterActivity : BaseActivity(), View.OnClickListener {
                 .addOnCompleteListener(
                     OnCompleteListener<AuthResult> { task ->
 
-                        hideProgressDialog()
-
                         // If the registration is successfully done
                         if (task.isSuccessful) {
 
                             val firebaseUser: FirebaseUser = task.result!!.user!!
 
-                            showErrorSnackBar(
-                                "You are registered successfully. Your user id is ${firebaseUser.uid}",
-                                false
+                            val user = User(
+                                firebaseUser.uid,
+                                et_first_name.text.toString().trim { it <= ' ' },
+                                et_last_name.text.toString().trim { it <= ' ' },
+                                et_email.text.toString().trim { it <= ' ' }
                             )
 
-                            FirebaseAuth.getInstance().signOut()
-                            finish()
+                            FirestoreClass().registerUser(this@RegisterActivity, user)
+
 
                         } else {
+                            hideProgressDialog()
                             // If the registering is not successful then show error message.
                             showErrorSnackBar(task.exception!!.message.toString(), true)
                         }
                     }
                 )
         }
+
+    }
+
+    fun userRegistrationSuccess(){
+        hideProgressDialog()
+
+        Toast.makeText(
+            this@RegisterActivity,
+            resources.getString(R.string.register_success),
+            Toast.LENGTH_LONG
+        ).show()
 
     }
 
