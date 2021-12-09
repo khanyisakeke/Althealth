@@ -9,7 +9,5 @@ import android.view.WindowInsets
 
 
 object Constants {
-
-
-
+    const val USERS: String = "users"
 }
