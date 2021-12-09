@@ -1,6 +1,8 @@
 package com.example.althealth.firestore
 
 import android.app.Activity
+import android.content.Context
+import android.content.SharedPreferences
 import android.util.Log
 import com.example.althealth.models.User
 import com.example.althealth.ui.activities.LoginActivity
@@ -61,6 +63,18 @@ class FirestoreClass {
 
                 // Here we have received the document snapshot which is converted into the User Data model object.
                 val user = document.toObject(User::class.java)!!
+
+                val sharedPreferences = activity.getSharedPreferences(
+                    Constants.MYSHOPPAL_PREFERENCES,
+                    Context.MODE_PRIVATE
+                )
+                    //Key: Value logged_in_username: Khanyisa Keke
+                val editor: SharedPreferences.Editor = sharedPreferences.edit()
+                editor.putString(Constants.LOGGED_IN_USERNAME,
+                "${user.firstName} ${user.lastName}"
+                )
+
+                editor.apply()
 
                 when (activity){
                     is LoginActivity -> {
