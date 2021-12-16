@@ -55,6 +55,8 @@
     <!--START-->
     <string name="msg_profile_update_success">Your profile is updated successfully.</string>
 
+    <string name="btn_lbl_save">Save</string>
+
     <!--END-->
 
 </resources>

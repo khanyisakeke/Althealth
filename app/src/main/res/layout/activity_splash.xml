@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/button_gradiant_1"
+    android:background="@drawable/app_gradient_color_background"
     tools:context=".ui.activities.SplashActivity">
 
 <com.example.althealth.utils.AltTextViewBold

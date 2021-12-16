@@ -10,10 +10,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Althealth">
         <activity
+            android:name=".ui.activities.UserProfileActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"/>
+        <activity
             android:name=".ui.activities.ForgotPasswordActivity"
             android:exported="false"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Althealth.NoActionBar"/>
+            android:theme="@style/Theme.Althealth.NoActionBar" />
         <activity
             android:name=".ui.activities.RegisterActivity"
             android:exported="false"
