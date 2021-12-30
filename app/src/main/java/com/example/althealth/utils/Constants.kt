@@ -10,6 +10,8 @@ import android.view.WindowInsets
 
 object Constants {
     const val USERS: String = "users"
-    const val MYSHOPPAL_PREFERENCES: String = "MyShopPalPrefs"
+    const val REFERENCE: String = "reference"
+    const val Althealth_PREFERENCES: String = "AtlhealthPrefs"
     const val LOGGED_IN_USERNAME: String = "logged_in_username"
+    const val EXTRA_USER_DETAILS: String = "extra_user_details"
 }

@@ -1,8 +1,12 @@
 package com.example.althealth.models
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class User(
-    val id: String = "",
-    val firstName: String = "",
+    var id: String = "",
+    var firstName: String = "",
     val lastName: String = "",
     val email: String = "",
     val image: String = "",
@@ -11,4 +15,4 @@ data class User(
     val workNumber: Long = 0,
     val reference: String = "",
     val profileCompleted: Int = 0
-)
+): Parcelable

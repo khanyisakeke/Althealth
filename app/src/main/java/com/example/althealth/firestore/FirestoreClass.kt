@@ -4,12 +4,20 @@ import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
+import android.view.View
+import android.widget.ArrayAdapter
+import android.widget.Spinner
+import com.example.althealth.R
+import com.example.althealth.models.Reference
 import com.example.althealth.models.User
 import com.example.althealth.ui.activities.LoginActivity
 import com.example.althealth.ui.activities.RegisterActivity
+import com.example.althealth.ui.activities.UserProfileActivity
 import com.example.althealth.utils.Constants
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.SetOptions
 
 class FirestoreClass {
@@ -65,7 +73,7 @@ class FirestoreClass {
                 val user = document.toObject(User::class.java)!!
 
                 val sharedPreferences = activity.getSharedPreferences(
-                    Constants.MYSHOPPAL_PREFERENCES,
+                    Constants.Althealth_PREFERENCES,
                     Context.MODE_PRIVATE
                 )
                     //Key: Value logged_in_username: Khanyisa Keke
@@ -83,6 +91,41 @@ class FirestoreClass {
                     }
                 }
             }
+    }
+
+    fun getReferenceList(activity: UserProfileActivity) {
+
+        val referencesRef = mFirestore.collection(Constants.REFERENCE)
+        // Here we have created a new instance for References ArrayList.
+        val references: MutableList<String?> = ArrayList()
+
+        referencesRef.get().addOnCompleteListener(OnCompleteListener<QuerySnapshot> { task ->
+            if (task.isSuccessful) {
+
+                // A for loop as per the task.result to convert them into the References ArrayList.
+
+                for (document in task.result!!) {
+
+                    val reference = document.getString("c_reference")
+
+                    references.add(reference)
+                }
+
+                activity.successReferenceList(references)
+
+            } else {
+
+                // Hide the progress dialog if there is any error.
+                activity.hideProgressDialog()
+
+                Log.e(
+                    activity.javaClass.simpleName,
+                    "Error while getting the list of references."
+                )
+
+            }
+        })
+
     }
 
 }

@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val tv_main: TextView = findViewById(R.id.tv_main)
-        val sharedPreferences = getSharedPreferences(Constants.MYSHOPPAL_PREFERENCES, Context.MODE_PRIVATE)
+        val sharedPreferences = getSharedPreferences(Constants.Althealth_PREFERENCES, Context.MODE_PRIVATE)
         val username = sharedPreferences.getString(Constants.LOGGED_IN_USERNAME, "")!!
         tv_main.text = "The logged in user is $username."
 
